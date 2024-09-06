@@ -1,5 +1,9 @@
 pipeline {
     agent any
+environment {
+        SONAR_TOKEN = credentials('sonar-token-auth')   // Use the Jenkins credential with ID 'sonar-token'
+        SONAR_HOST_URL = 'http://44.202.163.213:9000/'
+    }
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
