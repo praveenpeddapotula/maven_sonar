@@ -12,4 +12,4 @@
           }
         }
       }
-#withSonarQubeEnv('sonar-scan')  here sonar-scan is taken from env variable of system configuration of sonarqube
+
