@@ -1,15 +1,33 @@
-     pipeline {
-        agent any
-        stages {
-         
-          stage("build & sonarqube") {
-            agent any
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven-3.9.9"
+    }
+
+    stages {
+        stage('clone the code') {
             steps {
-              withSonarQubeEnv('sonar-scan') {
-                sh 'mvn clean package sonar:sonar'
-              }
+                // Get some code from a GitHub repository
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/praveenpeddapotula/maven-web-app-project.git'
+
             }
-          }
         }
-      }
+        stage('build the code') {
+            steps{
+                sh 'mvn clean install'
+            }
+        
+        }
+         stage('SonarQube Scan') {
+            steps {
+                withSonarQubeEnv('sonarqube-scanner') {
+                     sh " mvn sonar:sonar "
+
+                     }
+            }
+        }
+    }
+}
 
