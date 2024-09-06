@@ -5,10 +5,11 @@
           stage("build & sonarqube") {
             agent any
             steps {
-              withSonarQubeEnv('Sona_TOKEN') {
+              withSonarQubeEnv('sonar-scan') {
                 sh 'mvn clean package sonar:sonar'
               }
             }
           }
         }
       }
+#withSonarQubeEnv('sonar-scan')  here sonar-scan is taken from env variable of system configuration of sonarqube
